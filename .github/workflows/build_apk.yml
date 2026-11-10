@@ -21,22 +21,19 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.x'
+          flutter-version: '3.19.0'
           channel: 'stable'
 
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Generate Android files
-        run: flutter create . --platforms=android --org com.niqabii.coders
-
-      - name: Configure minSdkVersion & Gradle
+      - name: Clean and Create Android Scaffold
         run: |
-          sed -i 's/minSdkVersion.*/minSdkVersion 21/g' android/app/build.gradle
-          echo "android.enableJetifier=true" >> android/gradle.properties
-          echo "android.useAndroidX=true" >> android/gradle.properties
+          flutter create . --platforms=android --org com.niqabii.coders
+          flutter clean
+          flutter pub get
 
-      - name: Build APK Release
+      - name: Build APK Debug
         run: flutter build apk --debug
 
       - name: Upload APK Artifact
