@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'login_view.dart'; // سنقوم بتجهيزه لاحقاً
 
-class SplashView extends StatefulWidget {
+class SplashView extends StatelessWidget {
   const SplashView({super.key});
 
   @override
