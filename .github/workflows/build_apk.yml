@@ -24,6 +24,11 @@ jobs:
       - name: Generate Android files
         run: flutter create . --platforms=android --org com.niqabii.coders
 
+      - name: Update minSdk to 21
+        run: |
+          sed -i 's/minSdkVersion flutter.minSdkVersion/minSdkVersion 21/g' android/app/build.gradle || true
+          sed -i 's/minSdkVersion 16/minSdkVersion 21/g' android/app/build.gradle || true
+
       - name: Build APK Release
         run: flutter build apk --release
 
