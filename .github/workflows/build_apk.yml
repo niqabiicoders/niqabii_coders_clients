@@ -30,15 +30,17 @@ jobs:
       - name: Generate Android files
         run: flutter create . --platforms=android --org com.niqabii.coders
 
-      - name: Set minSdkVersion to 21
+      - name: Configure minSdkVersion & Gradle
         run: |
           sed -i 's/minSdkVersion.*/minSdkVersion 21/g' android/app/build.gradle
+          echo "android.enableJetifier=true" >> android/gradle.properties
+          echo "android.useAndroidX=true" >> android/gradle.properties
 
       - name: Build APK Release
-        run: flutter build apk --release
+        run: flutter build apk --debug
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-release
-          path: build/app/outputs/flutter-apk/app-release.apk
+          name: app-debug
+          path: build/app/outputs/flutter-apk/app-debug.apk
