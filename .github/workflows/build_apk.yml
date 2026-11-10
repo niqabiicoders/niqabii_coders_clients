@@ -30,12 +30,11 @@ jobs:
       - name: Clean and Create Android Scaffold
         run: |
           flutter create . --platforms=android --org com.niqabii.coders
-          # فرض استخدام أندرويد V2 embedding لتتوافق مع الحزم الحديثة
-          mkdir -p android/app/src/main
-          echo "android:appComponentFactory=\"androidx.core.app.CoreComponentFactory\"" >> android/app/src/main/AndroidManifest.xml || true
+          flutter clean
+          flutter pub get
 
       - name: Build APK Debug
-        run: flutter build apk --debug
+        run: flutter build apk --debug --verbose
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
